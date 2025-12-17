@@ -173,6 +173,38 @@ function MobileAccent() {
   );
 }
 
+function QuoteCard() {
+  return (
+    <div className="w-full rounded-3xl border border-emerald-900/30 bg-slate-900/15 p-6 shadow-[0_0_0_1px_rgba(16,185,129,0.05)] sm:p-8 lg:p-10">
+      <div className="flex flex-col gap-6">
+        <div>
+          <div className="inline-flex items-center gap-2 rounded-2xl border border-emerald-900/30 bg-slate-950/55 px-4 py-2 text-sm text-slate-300">
+            <FiShield className="text-emerald-200" />
+            Disciplina financeira
+          </div>
+
+          <h1 className="mt-5 text-xl font-semibold tracking-tight text-slate-100 sm:text-2xl lg:text-3xl">
+            Cuidado com pequenas despesas; um pequeno vazamento afundará um grande navio.
+          </h1>
+
+          <p className="mt-2 text-sm leading-relaxed text-slate-400 sm:text-base">Benjamin Franklin</p>
+
+          <p className="mt-4 text-sm leading-relaxed text-slate-500">
+            Pequenos gastos se acumulam. Registrar o que sai ajuda a manter clareza e controle.
+          </p>
+        </div>
+
+        <div className="rounded-3xl border border-emerald-900/25 bg-slate-950/40 p-5">
+          <div className="flex items-center gap-2 text-sm text-slate-300">
+            <FiInfo className="text-slate-400" />
+            Use este app como um hábito rápido: anotar agora evita esquecer depois.
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function App() {
   const today = useMemo(() => new Date().toISOString().slice(0, 10), []);
   const apiUrl = import.meta.env.VITE_HOMEWISE_API_URL;
@@ -337,252 +369,244 @@ export default function App() {
     "inline-flex items-center justify-center gap-2 rounded-2xl border border-emerald-900/35 bg-slate-950/55 px-4 h-11 lg:h-12 text-xs lg:text-sm font-semibold text-slate-200 transition hover:border-emerald-500/40 hover:bg-slate-950/75";
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100">
+    <div className="min-h-screen min-h-[100svh] bg-slate-950 text-slate-100 overflow-x-hidden overscroll-none">
       <div className="pointer-events-none fixed inset-0 -z-10">
         <div className="absolute -top-48 left-1/2 h-96 w-[46rem] -translate-x-1/2 rounded-full bg-emerald-500/10 blur-3xl" />
         <div className="absolute -bottom-60 right-[-8rem] h-[28rem] w-[28rem] rounded-full bg-emerald-400/10 blur-3xl" />
       </div>
 
-      <header className="border-b border-emerald-900/30 bg-slate-950/70 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:py-5 lg:px-6">
-          <div className="flex min-w-0 items-center gap-3">
-            <img src={logoHomeWise} alt="HomeWise" className="h-11 w-11 shrink-0 object-contain sm:h-12 sm:w-12 lg:h-14 lg:w-14" draggable={false} />
-            <div className="min-w-0 leading-tight">
-              <div className="truncate text-base font-semibold tracking-tight sm:text-lg lg:text-xl">HomeWise</div>
-              <div className="truncate text-xs text-slate-400 sm:text-sm">Controle financeiro em família</div>
-            </div>
-          </div>
-
-          {isLoggedIn ? (
-            <div className="flex items-center gap-2 sm:gap-3">
-              <div className="hidden sm:flex items-center gap-2 rounded-2xl border border-emerald-900/30 bg-slate-950/55 px-3 py-2 text-xs text-slate-300 lg:px-4 lg:py-2.5 lg:text-sm">
-                <FiUser className="text-slate-400" />
-                <span className="text-slate-200">{loggedPerson}</span>
-                <span className="text-slate-500">•</span>
-                <span className="text-slate-400">{remainingMin} min</span>
+      <div className="min-h-screen min-h-[100svh] flex flex-col">
+        <header className="border-b border-emerald-900/30 bg-slate-950/70 backdrop-blur shrink-0">
+          <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:py-5 lg:px-6">
+            <div className="flex min-w-0 items-center gap-3">
+              <img
+                src={logoHomeWise}
+                alt="HomeWise"
+                className="h-11 w-11 shrink-0 object-contain sm:h-12 sm:w-12 lg:h-14 lg:w-14"
+                draggable={false}
+              />
+              <div className="min-w-0 leading-tight">
+                <div className="truncate text-base font-semibold tracking-tight sm:text-lg lg:text-xl">HomeWise</div>
+                <div className="truncate text-xs text-slate-400 sm:text-sm">Controle financeiro em família</div>
               </div>
-              <button onClick={handleLogout} className={buttonGhost}>
-                <FiLogOut />
-                Sair
-              </button>
             </div>
-          ) : (
-            <div className="hidden sm:flex items-center gap-2 text-xs text-slate-400 lg:text-sm">
-              <FiShield />
-              Acesso protegido
-            </div>
-          )}
-        </div>
-      </header>
 
-      <main className="mx-auto max-w-7xl px-4 py-6 sm:py-10 lg:px-6">
-        <MobileAccent />
+            {isLoggedIn ? (
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="hidden sm:flex items-center gap-2 rounded-2xl border border-emerald-900/30 bg-slate-950/55 px-3 py-2 text-xs text-slate-300 lg:px-4 lg:py-2.5 lg:text-sm">
+                  <FiUser className="text-slate-400" />
+                  <span className="text-slate-200">{loggedPerson}</span>
+                  <span className="text-slate-500">•</span>
+                  <span className="text-slate-400">{remainingMin} min</span>
+                </div>
+                <button onClick={handleLogout} className={buttonGhost}>
+                  <FiLogOut />
+                  Sair
+                </button>
+              </div>
+            ) : (
+              <div className="hidden sm:flex items-center gap-2 text-xs text-slate-400 lg:text-sm">
+                <FiShield />
+                Acesso protegido
+              </div>
+            )}
+          </div>
+        </header>
 
-        <div className="mt-5 grid gap-6 lg:mt-0 lg:grid-cols-12 lg:gap-8 lg:items-stretch">
-          {!isLoggedIn ? (
-            <>
-              <section className="lg:col-span-5 flex">
-                <Card title="Entrar" icon={FiLogIn} subtitle="Acesse para registrar gastos com rapidez." className="w-full">
-                  <form onSubmit={handleLogin} className="grid gap-4 lg:gap-5">
-                    <Field label="Pessoa" icon={FiUser}>
-                      <SelectControl value={loginPerson} onChange={(e) => setLoginPerson(e.target.value)} options={PEOPLE} className={selectWithIcon} />
-                    </Field>
+        <main className="flex-1">
+          <div className="mx-auto max-w-7xl px-4 pt-6 pb-10 sm:pt-10 sm:pb-12 lg:px-6">
+            <MobileAccent />
 
-                    <Field label="Acesso" icon={FiShield} hint="Usado apenas para validar e manter o acesso neste dispositivo.">
-                      <div className="relative">
-                        <input
-                          type={showPin ? "text" : "password"}
-                          inputMode="numeric"
-                          autoComplete="one-time-code"
-                          placeholder="Digite aqui"
-                          value={pin}
-                          onChange={(e) => setPin(normalizePin(e.target.value))}
-                          className={controlWithRightButton}
+            {!isLoggedIn ? (
+              <div className="mt-5 grid gap-6 lg:mt-0 lg:grid-cols-12 lg:gap-8 lg:items-stretch">
+                <section className="lg:col-span-5 flex">
+                  <Card title="Entrar" icon={FiLogIn} subtitle="Acesse para registrar gastos com rapidez." className="w-full">
+                    <form onSubmit={handleLogin} className="grid gap-4 lg:gap-5">
+                      <Field label="Pessoa" icon={FiUser}>
+                        <SelectControl
+                          value={loginPerson}
+                          onChange={(e) => setLoginPerson(e.target.value)}
+                          options={PEOPLE}
+                          className={selectWithIcon}
                         />
-                        <button
-                          type="button"
-                          onClick={() => setShowPin((v) => !v)}
-                          className="absolute right-2 top-1/2 -translate-y-1/2 grid h-9 w-9 place-items-center rounded-xl border border-emerald-900/30 bg-slate-950/55 text-slate-200 hover:bg-slate-950/75"
-                          aria-label={showPin ? "Ocultar acesso" : "Mostrar acesso"}
+                      </Field>
+
+                      <Field label="Acesso" icon={FiShield} hint="Usado apenas para validar e manter o acesso neste dispositivo.">
+                        <div className="relative">
+                          <input
+                            type={showPin ? "text" : "password"}
+                            inputMode="numeric"
+                            autoComplete="one-time-code"
+                            placeholder="Digite aqui"
+                            value={pin}
+                            onChange={(e) => setPin(normalizePin(e.target.value))}
+                            className={controlWithRightButton}
+                          />
+                          <button
+                            type="button"
+                            onClick={() => setShowPin((v) => !v)}
+                            className="absolute right-2 top-1/2 -translate-y-1/2 grid h-9 w-9 place-items-center rounded-xl border border-emerald-900/30 bg-slate-950/55 text-slate-200 hover:bg-slate-950/75"
+                            aria-label={showPin ? "Ocultar acesso" : "Mostrar acesso"}
+                          >
+                            {showPin ? <FiEyeOff /> : <FiEye />}
+                          </button>
+                        </div>
+                      </Field>
+
+                      <button type="submit" disabled={loginStatus.type === "loading"} className={buttonPrimary}>
+                        {loginStatus.type === "loading" ? <FiLoader className="animate-spin" /> : <FiLogIn />}
+                        {loginStatus.type === "loading" ? "Entrando..." : "Entrar"}
+                      </button>
+
+                      <StatusBox status={loginStatus} />
+                    </form>
+                  </Card>
+                </section>
+
+                <section className="lg:col-span-7 flex">
+                  <QuoteCard />
+                </section>
+              </div>
+            ) : (
+              <div className="mt-5 grid gap-6 lg:mt-0 lg:grid-cols-12 lg:gap-8 lg:items-stretch">
+                <section className="lg:col-span-7 flex">
+                  <Card
+                    title="Novo gasto"
+                    icon={FiSave}
+                    subtitle={`Logado como ${loggedPerson}. Ao salvar, vai direto para a planilha.`}
+                    className="w-full"
+                    rightSlot={
+                      <div className="inline-flex items-center gap-2 rounded-2xl border border-emerald-900/30 bg-slate-950/55 px-3 py-2 lg:px-4 lg:py-2.5">
+                        <span className="grid h-8 w-8 place-items-center rounded-xl bg-emerald-500/10 text-emerald-200">
+                          <FiWifi />
+                        </span>
+                        <span className="text-xs text-slate-300 lg:text-sm">Conectado</span>
+                      </div>
+                    }
+                  >
+                    <form onSubmit={handleSubmitExpense} className="grid gap-7 lg:gap-9">
+                      <div className="grid gap-7 sm:grid-cols-2 lg:gap-12">
+                        <Field label="Data" icon={FiCalendar} hint="Lançamento registrado com a data de hoje.">
+                          <input type="text" value={date} readOnly className={controlDisabled} />
+                        </Field>
+
+                        <Field label="Categoria">
+                          <SelectControl value={category} onChange={(e) => setCategory(e.target.value)} options={CATEGORIES} className={selectWithIcon} />
+                        </Field>
+                      </div>
+
+                      <div className="grid gap-7 sm:grid-cols-2 lg:gap-12">
+                        <Field
+                          label="Valor"
+                          icon={FiDollarSign}
+                          rightAddon={
+                            <span>
+                              Prévia: <span className="text-emerald-200">{amountPreview}</span>
+                            </span>
+                          }
                         >
-                          {showPin ? <FiEyeOff /> : <FiEye />}
+                          <input
+                            inputMode="decimal"
+                            placeholder="0,00"
+                            value={amount}
+                            onChange={(e) => setAmount(e.target.value)}
+                            className={controlWithIcon}
+                          />
+                        </Field>
+
+                        <Field label="Descrição (opcional)">
+                          <input
+                            placeholder="Ex: padaria, farmácia"
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                            className={controlWithIcon}
+                          />
+                        </Field>
+                      </div>
+
+                      <div className="grid gap-3 sm:grid-cols-[auto,1fr] sm:items-center sm:gap-4">
+                        <button type="submit" disabled={status.type === "loading"} className={buttonPrimary + " w-full sm:w-auto"}>
+                          {status.type === "loading" ? <FiLoader className="animate-spin" /> : <FiSave />}
+                          {status.type === "loading" ? "Salvando..." : "Salvar gasto"}
                         </button>
-                      </div>
-                    </Field>
 
-                    <button type="submit" disabled={loginStatus.type === "loading"} className={buttonPrimary}>
-                      {loginStatus.type === "loading" ? <FiLoader className="animate-spin" /> : <FiLogIn />}
-                      {loginStatus.type === "loading" ? "Entrando..." : "Entrar"}
-                    </button>
-
-                    <StatusBox status={loginStatus} />
-                  </form>
-                </Card>
-              </section>
-
-              <section className="hidden lg:col-span-7 lg:flex">
-                <div className="w-full rounded-3xl border border-emerald-900/30 bg-slate-900/15 p-10 shadow-[0_0_0_1px_rgba(16,185,129,0.05)] flex">
-                  <div className="flex w-full flex-col justify-between gap-10">
-                    <div>
-                      <div className="inline-flex items-center gap-2 rounded-2xl border border-emerald-900/30 bg-slate-950/55 px-4 py-2 text-sm text-slate-300">
-                        <FiShield className="text-emerald-200" />
-                        Disciplina financeira
+                        <div className="inline-flex items-center justify-center sm:justify-end gap-2 text-xs text-slate-500 lg:text-sm">
+                          <FiInfo />
+                          Acesso ativo neste dispositivo
+                        </div>
                       </div>
 
-                      <h1 className="mt-6 text-3xl font-semibold tracking-tight text-slate-100">
-                        Cuidado com pequenas despesas; um pequeno vazamento afundará um grande navio.
-                      </h1>
+                      <StatusBox status={status} />
+                    </form>
+                  </Card>
+                </section>
 
-                      <p className="mt-3 max-w-xl text-base leading-relaxed text-slate-400">Benjamin Franklin</p>
+                <section className="lg:col-span-5 flex">
+                  <div className="w-full flex flex-col gap-6">
+                    <QuoteCard />
 
-                      <p className="mt-4 max-w-xl text-sm leading-relaxed text-slate-500">
-                        Pequenos gastos se acumulam. Registrar o que sai ajuda a manter clareza e controle.
-                      </p>
-                    </div>
+                    <div className="w-full rounded-3xl border border-emerald-900/30 bg-slate-900/15 p-7 shadow-[0_0_0_1px_rgba(16,185,129,0.05)] flex flex-col">
+                      <div className="flex flex-col gap-6 flex-1">
+                        <div>
+                          <div className="inline-flex items-center gap-2 rounded-2xl border border-emerald-900/30 bg-slate-950/55 px-4 py-2 text-sm text-slate-300">
+                            <FiWifi className="text-emerald-200" />
+                            Visão do app
+                          </div>
 
-                    <div className="rounded-3xl border border-emerald-900/25 bg-slate-950/40 p-6">
-                      <div className="flex items-center gap-2 text-sm text-slate-300">
-                        <FiInfo className="text-slate-400" />
-                        Use este app como um hábito rápido: anotar agora evita esquecer depois.
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
-            </>
-          ) : (
-            <>
-              <section className="lg:col-span-7 flex">
-                <Card
-                  title="Novo gasto"
-                  icon={FiSave}
-                  subtitle={`Logado como ${loggedPerson}. Ao salvar, vai direto para a planilha.`}
-                  className="w-full"
-                  rightSlot={
-                    <div className="inline-flex items-center gap-2 rounded-2xl border border-emerald-900/30 bg-slate-950/55 px-3 py-2 lg:px-4 lg:py-2.5">
-                      <span className="grid h-8 w-8 place-items-center rounded-xl bg-emerald-500/10 text-emerald-200">
-                        <FiWifi />
-                      </span>
-                      <span className="text-xs text-slate-300 lg:text-sm">Conectado</span>
-                    </div>
-                  }
-                >
-                  <form onSubmit={handleSubmitExpense} className="grid gap-6 lg:gap-8">
-                    <div className="grid gap-6 sm:grid-cols-2 lg:gap-10">
-                      <Field label="Data" icon={FiCalendar} hint="Lançamento registrado com a data de hoje.">
-                        <input type="text" value={date} readOnly className={controlDisabled} />
-                      </Field>
+                          <h3 className="mt-5 text-2xl font-semibold tracking-tight text-slate-100">Tudo pronto para registrar com consistência</h3>
 
-                      <Field label="Categoria">
-                        <SelectControl value={category} onChange={(e) => setCategory(e.target.value)} options={CATEGORIES} className={selectWithIcon} />
-                      </Field>
-                    </div>
+                          <p className="mt-2 text-base leading-relaxed text-slate-400">
+                            Use este painel como conferência rápida: usuário, tempo de sessão e ações essenciais no mesmo lugar.
+                          </p>
 
-                    <div className="grid gap-6 sm:grid-cols-2 lg:gap-10">
-                      <Field
-                        label="Valor"
-                        icon={FiDollarSign}
-                        rightAddon={
-                          <span>
-                            Prévia: <span className="text-emerald-200">{amountPreview}</span>
-                          </span>
-                        }
-                      >
-                        <input
-                          inputMode="decimal"
-                          placeholder="0,00"
-                          value={amount}
-                          onChange={(e) => setAmount(e.target.value)}
-                          className={controlWithIcon}
-                        />
-                      </Field>
+                          <div className="mt-6 grid gap-4">
+                            <div className="rounded-3xl border border-emerald-900/30 bg-slate-950/45 p-5">
+                              <div className="flex items-center gap-3">
+                                <span className="grid h-11 w-11 place-items-center rounded-2xl bg-emerald-500/10 text-emerald-200">
+                                  <FiUser />
+                                </span>
+                                <div>
+                                  <div className="text-sm font-semibold text-slate-100">Usuário</div>
+                                  <div className="text-sm text-slate-400">{loggedPerson}</div>
+                                </div>
+                              </div>
+                            </div>
 
-                      <Field label="Descrição (opcional)">
-                        <input
-                          placeholder="Ex: padaria, farmácia"
-                          value={description}
-                          onChange={(e) => setDescription(e.target.value)}
-                          className={controlWithIcon}
-                        />
-                      </Field>
-                    </div>
-
-                    <div className="grid gap-3 sm:grid-cols-[auto,1fr] sm:items-center sm:gap-4">
-                      <button type="submit" disabled={status.type === "loading"} className={buttonPrimary + " w-full sm:w-auto"}>
-                        {status.type === "loading" ? <FiLoader className="animate-spin" /> : <FiSave />}
-                        {status.type === "loading" ? "Salvando..." : "Salvar gasto"}
-                      </button>
-
-                      <div className="inline-flex items-center justify-center sm:justify-end gap-2 text-xs text-slate-500 lg:text-sm">
-                        <FiInfo />
-                        Acesso ativo neste dispositivo
-                      </div>
-                    </div>
-
-                    <StatusBox status={status} />
-                  </form>
-                </Card>
-              </section>
-
-              <section className="hidden lg:col-span-5 lg:flex">
-                <div className="w-full rounded-3xl border border-emerald-900/30 bg-slate-900/15 p-8 shadow-[0_0_0_1px_rgba(16,185,129,0.05)] flex flex-col">
-                  <div className="flex flex-col gap-6 flex-1">
-                    <div>
-                      <div className="inline-flex items-center gap-2 rounded-2xl border border-emerald-900/30 bg-slate-950/55 px-4 py-2 text-sm text-slate-300">
-                        <FiWifi className="text-emerald-200" />
-                        Visão do app
-                      </div>
-
-                      <h3 className="mt-5 text-2xl font-semibold tracking-tight text-slate-100">Tudo pronto para registrar com consistência</h3>
-
-                      <p className="mt-2 text-base leading-relaxed text-slate-400">
-                        Use este painel como conferência rápida: usuário, tempo de sessão e ações essenciais no mesmo lugar.
-                      </p>
-
-                      <div className="mt-6 grid gap-4">
-                        <div className="rounded-3xl border border-emerald-900/30 bg-slate-950/45 p-5">
-                          <div className="flex items-center gap-3">
-                            <span className="grid h-11 w-11 place-items-center rounded-2xl bg-emerald-500/10 text-emerald-200">
-                              <FiUser />
-                            </span>
-                            <div>
-                              <div className="text-sm font-semibold text-slate-100">Usuário</div>
-                              <div className="text-sm text-slate-400">{loggedPerson}</div>
+                            <div className="rounded-3xl border border-emerald-900/30 bg-slate-950/45 p-5">
+                              <div className="flex items-center gap-3">
+                                <span className="grid h-11 w-11 place-items-center rounded-2xl bg-emerald-500/10 text-emerald-200">
+                                  <FiShield />
+                                </span>
+                                <div>
+                                  <div className="text-sm font-semibold text-slate-100">Sessão</div>
+                                  <div className="text-sm text-slate-400">Expira em {remainingMin} min</div>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
 
-                        <div className="rounded-3xl border border-emerald-900/30 bg-slate-950/45 p-5">
-                          <div className="flex items-center gap-3">
-                            <span className="grid h-11 w-11 place-items-center rounded-2xl bg-emerald-500/10 text-emerald-200">
-                              <FiShield />
-                            </span>
-                            <div>
-                              <div className="text-sm font-semibold text-slate-100">Sessão</div>
-                              <div className="text-sm text-slate-400">Expira em {remainingMin} min</div>
-                            </div>
-                          </div>
+                        <div className="mt-auto">
+                          <button onClick={handleLogout} className={buttonGhost + " w-full"}>
+                            <FiLogOut />
+                            Encerrar acesso
+                          </button>
                         </div>
                       </div>
                     </div>
-
-                    <div className="mt-auto">
-                      <button onClick={handleLogout} className={buttonGhost + " w-full"}>
-                        <FiLogOut />
-                        Encerrar acesso
-                      </button>
-                    </div>
                   </div>
-                </div>
-              </section>
-            </>
-          )}
-        </div>
+                </section>
+              </div>
+            )}
+          </div>
+        </main>
 
-        <footer className="mt-8 border-t border-emerald-900/25 py-6 text-center text-xs text-slate-500 lg:mt-12">
-          HomeWise • by Luciano K.
+        <footer className="shrink-0 border-t border-emerald-900/25 bg-slate-950/80 backdrop-blur">
+          <div className="mx-auto max-w-7xl px-4 py-5 lg:px-6 text-center text-xs text-slate-500">
+            HomeWise • by Luciano K.
+          </div>
         </footer>
-      </main>
+      </div>
     </div>
   );
 }
